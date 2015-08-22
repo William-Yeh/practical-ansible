@@ -21,10 +21,14 @@ Before attending this talk, read my previous talk given at [Modern Web 2015](htt
 - Lab materials (if you have time): https://github.com/William-Yeh/ansible-tutorial
 
 
+## Slides (under construction)
 
-## Lab materials
+View online: http://bit.ly/practical-ansible-slides
 
-*[Under construction]*
+Due to time constaints (40 minutes), not all details are explained in the talk and slides.  If more details needs to be explained, together with all labs demonstrated, 2 hours may be more appropriated.
+
+
+## Lab materials (under construction)
 
 Companion lab materials for this talk.
 
