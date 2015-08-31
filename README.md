@@ -12,9 +12,11 @@ A talk to be given at [DevOps 2015, Taipei](http://devopsconf.ithome.com.tw/) (2
 
 
 
-## Preparation
+## Before attending this talk...
 
-Before attending this talk, read my previous talk given at [Modern Web 2015](http://modernweb.tw/):
+This talk focuses on *practical* issues, not *basic concepts* of configuration management.
+
+Refer to my previous talk given at [Modern Web 2015](http://modernweb.tw/) before attending this talk, if you're new to the concept of configuration management:
 
 - Video: https://youtu.be/FboNN3OSq60
 - Slides: http://bit.ly/ansible-slide
