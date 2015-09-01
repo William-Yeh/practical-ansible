@@ -1,0 +1,27 @@
+---
+# nodejs/meta/main.yml
+
+galaxy_info:
+    author: williamyeh
+    description: Install and configure Node.js
+    license: MIT
+    min_ansible_version: 1.4
+
+    platforms:
+        - name: Ubuntu
+          versions:
+              - precise
+              - trusty
+        - name: Debian
+          versions:
+              - wheezy
+              - jessie
+        - name: EL
+          versions:
+              - 6
+              - 7
+
+    categories:
+        - development
+
+dependencies: []

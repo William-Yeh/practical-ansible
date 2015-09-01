@@ -25,16 +25,16 @@ Refer to my previous talk given at [Modern Web 2015](http://modernweb.tw/) befor
 
 ## Slides (under construction)
 
-View online: http://bit.ly/practical-ansible-slides
+View online at SlideShare.
 
 Due to time constaints (40 minutes), not all details are explained in the talk and slides.  If more details needs to be explained, together with all labs demonstrated, 2 hours may be more appropriated.
 
 
-## Lab materials (under construction)
+## Lab materials
 
 Companion lab materials for this talk.
 
-Forty minutes presentation, with some live demos on Vagrant and IaaS instances (e.g., EC2, Google Compute Engine).
+Forty minutes presentation, with some live demos on Vagrant, and possibly IaaS instances (e.g., EC2, Google Compute Engine).
 
 
 ## License

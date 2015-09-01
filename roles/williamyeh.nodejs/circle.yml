@@ -1,0 +1,32 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker version
+
+    - docker build  -f test/Dockerfile-ubuntu14.04  -t nodejs_trusty   .
+    - docker build  -f test/Dockerfile-ubuntu12.04  -t nodejs_precise  .
+    - docker build  -f test/Dockerfile-debian8      -t nodejs_jessie   .
+    - docker build  -f test/Dockerfile-debian7      -t nodejs_wheezy   .
+    - docker build  -f test/Dockerfile-centos7      -t nodejs_centos7  .
+    - docker build  -f test/Dockerfile-centos6      -t nodejs_centos6  .
+
+test:
+  override:
+    - docker run -i nodejs_trusty   > result-ubuntu14.04
+    - docker run -i nodejs_precise  > result-ubuntu12.04
+    - docker run -i nodejs_jessie   > result-debian8
+    - docker run -i nodejs_wheezy   > result-debian7
+    - docker run -i nodejs_centos7  > result-centos7
+    - docker run -i nodejs_centos6  > result-centos6
+
+    - echo "==> Validating the test results..."
+    - sh -c "[ -s result-ubuntu14.04 ]"
+    - sh -c "[ -s result-ubuntu12.04 ]"
+    - sh -c "[ -s result-debian8     ]"
+    - sh -c "[ -s result-debian7     ]"
+    - sh -c "[ -s result-centos7     ]"
+    - sh -c "[ -s result-centos6     ]"

@@ -1,0 +1,72 @@
+---
+# file: tasks/use-apt.yml
+#
+# Configure Node.js from APT repository.
+#
+# @see https://github.com/nodesource/distributions
+#
+
+- name: install add-apt-repository and https binaries for Ansible to work
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - python-software-properties
+    - apt-transport-https
+
+- name: install tools for compiling native addons from npm
+  apt: name={{ item }} state=present
+  with_items:
+    - build-essential
+  when: nodejs_compile
+
+
+
+- name: add NodeSource key
+  apt_key: data="{{ lookup('file', 'nodesource.gpg.key') }}" state=present
+
+
+
+- name: add NodeSource repository for Node.js 0.12 (deb)
+  apt_repository: repo='deb https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release|lower }} main' state=present
+  when: nodejs_version is defined
+
+- name: add NodeSource repository for Node.js 0.10 (deb)
+  apt_repository: repo='deb https://deb.nodesource.com/node_0.10 {{ ansible_distribution_release|lower }} main' state=present
+  when: nodejs_version is defined
+
+- name: add NodeSource repository for Node.js 0.12 (deb-src)
+  apt_repository: repo='deb-src https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release|lower }} main' state=present
+  when: nodejs_version is defined
+
+- name: add NodeSource repository for Node.js 0.10 (deb-src)
+  apt_repository: repo='deb-src https://deb.nodesource.com/node_0.10 {{ ansible_distribution_release|lower }} main' state=present
+  when: nodejs_version is defined
+
+
+
+- name: add NodeSource repository for io.js 1.x (deb)
+  apt_repository: repo='deb https://deb.nodesource.com/iojs_1.x {{ ansible_distribution_release|lower }} main' state=present
+  when: iojs_version is defined
+
+- name: add NodeSource repository for io.js 2.x (deb)
+  apt_repository: repo='deb https://deb.nodesource.com/iojs_2.x {{ ansible_distribution_release|lower }} main' state=present
+  when: iojs_version is defined
+
+- name: add NodeSource repository for io.js 1.x (deb-src)
+  apt_repository: repo='deb-src https://deb.nodesource.com/iojs_1.x {{ ansible_distribution_release|lower }} main' state=present
+  when: iojs_version is defined
+
+- name: add NodeSource repository for io.js 2.x (deb-src)
+  apt_repository: repo='deb-src https://deb.nodesource.com/iojs_2.x {{ ansible_distribution_release|lower }} main' state=present
+  when: iojs_version is defined
+
+
+
+- name: install Node.js with specific version
+  apt: name={{ item }}  update_cache=yes  state=present force=yes
+  with_items: [ "nodejs={{ nodejs_version }}*" ]
+  when: nodejs_version is defined
+
+- name: install io.js with specific version
+  apt: name={{ item }}  update_cache=yes  state=present force=yes
+  with_items: [ "iojs={{ iojs_version }}*" ]
+  when: iojs_version is defined

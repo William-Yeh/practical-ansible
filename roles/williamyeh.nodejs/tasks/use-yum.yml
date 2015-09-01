@@ -1,0 +1,34 @@
+---
+# file: tasks/use-yum.yml
+#
+# Configure Node.js from YUM repository.
+#
+# @see https://github.com/nodesource/distributions
+#
+
+- name: install libselinux-python binary for Ansible to work
+  yum: name=libselinux-python state=present
+
+- name: install tools for compiling native addons from npm
+  yum: name={{ item }} state=present
+  with_items:
+    - gcc-c++
+    - make
+  when: nodejs_compile
+
+
+
+- name: add NodeSource official repository for CentOS
+  yum: name=https://rpm.nodesource.com/pub/el/{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/nodesource-release-el{{ ansible_distribution_major_version }}-1.noarch.rpm state=present
+
+
+
+- name: install Node.js with specific version
+  yum: name={{ item }}  update_cache=yes  state=present
+  with_items: [ "nodejs-{{ nodejs_version }}*" ]
+  when: nodejs_version is defined
+
+#- name: install io.js with specific version
+#  yum: name={{ item }}  update_cache=yes  state=present
+#  with_items: [ "iojs-{{ iojs_version }}*" ]
+#  when: iojs_version is defined

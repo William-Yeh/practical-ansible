@@ -1,0 +1,21 @@
+# Vagrant host
+
+[lbservers]
+lb    ansible_ssh_host=10.0.0.10
+
+
+[appservers]
+app1  ansible_ssh_host=10.0.0.20   internal_ip=10.0.0.20
+app2  ansible_ssh_host=10.0.0.21   internal_ip=10.0.0.21
+app3  ansible_ssh_host=10.0.0.22   internal_ip=10.0.0.22
+
+
+[dbservers]
+db    ansible_ssh_host=10.0.0.30   internal_ip=10.0.0.30
+
+
+
+#[all:children]
+#lbservers
+#appservers
+#dbservers

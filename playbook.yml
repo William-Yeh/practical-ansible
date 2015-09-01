@@ -1,0 +1,107 @@
+---
+# This playbook deploys the whole application stack in this site.
+
+
+#
+# Apply common configuration to all hosts
+#
+
+- hosts: all
+  sudo: True
+
+  roles:
+    - yatesr.timezone
+    - geerlingguy.ntp
+
+  vars:
+    timezone: Asia/Taipei
+    ntp_timezone: Asia/Taipei
+
+
+
+#
+# Configure and deploy the load balancer(s).
+#
+
+- hosts: lbservers
+  sudo: True
+  handlers:
+    - name: reload haproxy
+      service: name=haproxy state=reloaded
+
+  tasks:
+    - name: install HAProxy
+      yum: name=haproxy  state=present
+
+    - name: copy HAProxy config file
+      template: src="templates/haproxy.cfg.j2" dest="/etc/haproxy/haproxy.cfg"
+      notify:
+        - reload haproxy
+
+    - name: copy certificate for HAProxy
+      copy: src="files/certificate.pem" dest="/etc/haproxy/certificate.pem"
+      notify:
+        - reload haproxy
+
+
+#
+# Configure and deploy application servers.
+#
+
+- hosts: appservers
+  sudo: True
+  #serial: 1
+  roles:
+    - williamyeh.nodejs
+    - geerlingguy.git
+    - { role: project_deploy, tags: ['deploy'] }
+  vars:
+    project_root: "/opt/app"
+    project_deploy_strategy: git
+    project_git_repo: "https://github.com/William-Yeh/nodejs-redis-example.git"
+    project_version: "master"
+    project_has_npm: true
+    project_copy_previous_npm_modules: true
+    should_pause: false
+
+  tasks:
+    - name: check if the project has changed?
+      tags: ['deploy']
+      set_fact:
+        project_has_changed: True
+      changed_when: project_git_result.changed or project_npm_result.changed
+      notify:
+        - restart app
+
+    - name: copy Upstart INIT to /etc/init
+      tags: ['deploy']
+      template:
+        src:   templates/app.upstart.conf.j2
+        dest:  /etc/init/app.conf
+        owner: root
+        group: root
+        mode:  0644
+      notify:
+        - restart app
+
+    - name: pause on purpose for demo
+      tags: ['deploy']
+      pause: prompt="Press ENTER to continue..."
+      when: should_pause
+
+  handlers:
+    - name: restart app
+      service: name=app state=restarted enabled=yes
+
+
+#
+# Configure and deploy database servers.
+#
+
+- hosts: dbservers
+  sudo: True
+  roles:
+    - geerlingguy.repo-epel
+    - geerlingguy.redis
+  vars:
+    redis_bind_interface: 0.0.0.0

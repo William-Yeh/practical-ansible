@@ -1,0 +1,50 @@
+#---
+# commons
+#
+
+- # @see https://galaxy.ansible.com/list#/roles/1429
+  src: yatesr.timezone
+  path: roles/
+
+- # @see https://galaxy.ansible.com/list#/roles/464
+  src: geerlingguy.ntp
+  path: roles/
+
+
+#---
+# for lbservers
+#
+
+#- src: tersmitten.haproxy
+#  path: roles/
+
+
+#---
+# for appservers
+#
+
+- # @see https://galaxy.ansible.com/list#/roles/3669
+  src: williamyeh.nodejs
+  path: roles/
+
+- # @see https://galaxy.ansible.com/list#/roles/431
+  src: geerlingguy.git
+  path: roles/
+
+- src: https://github.com/William-Yeh/ansible-project_deploy
+  name: project_deploy
+  path: roles/
+
+
+
+#---
+# for dbservers
+#
+
+- # @see https://galaxy.ansible.com/list#/roles/436
+  src: geerlingguy.repo-epel
+  path: roles/
+
+- # @see https://galaxy.ansible.com/list#/roles/468
+  src: geerlingguy.redis
+  path: roles/

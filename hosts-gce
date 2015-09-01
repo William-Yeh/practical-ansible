@@ -1,0 +1,24 @@
+# gce-host
+
+[lbservers]
+lb    ansible_ssh_host=104.0.0.100
+
+
+[appservers]
+app1  ansible_ssh_host=104.155.86.123   internal_ip=10.0.0.0
+app2  ansible_ssh_host=104.0.0.100   internal_ip=10.0.0.0
+
+
+[dbservers]
+db    ansible_ssh_host=104.0.0.100   internal_ip=10.0.0.0
+
+
+
+[all:children]
+lbservers
+appservers
+dbservers
+
+
+[dummy]
+999.999.999.999

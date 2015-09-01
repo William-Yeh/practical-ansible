@@ -1,0 +1,40 @@
+---
+# directory handling
+#
+
+
+#
+# project_root
+#
+
+- name: Set file/directory owner for project_root
+  sudo: True
+  file: path={{ project_root }} recurse=yes owner={{ project_owner }}
+
+- name: Set file/directory group for project_root, if necessary
+  sudo: True
+  file: path={{ project_root }} recurse=yes group={{ project_group }}
+  when: project_group is defined
+
+#
+# project_other_dirs
+#
+
+- name: mkdir and set directory owner for project_other_dirs, if any
+  sudo: True
+  file: 
+    path: "{{ item }}"
+    owner: "{{ project_owner }}"
+    state: directory
+    recurse: yes
+  with_items: "{{ project_other_dirs }}"
+
+- name: mkdir and set directory group for project_other_dirs, if any
+  sudo: True
+  file: 
+    path: "{{ item }}"
+    group: "{{ project_group }}"
+    state: directory
+    recurse: yes
+  with_items: "{{ project_other_dirs }}"
+  when: project_group is defined

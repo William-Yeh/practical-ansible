@@ -1,0 +1,11 @@
+- hosts: lbservers:dbservers
+  #sudo: true
+  tasks:
+    - name: update openssh
+      yum: name=openssh state=latest
+
+- hosts: appservers
+  #sudo: true
+  tasks:
+    - name: update openssh
+      apt: name=openssh-server state=latest

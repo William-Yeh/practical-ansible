@@ -1,0 +1,17 @@
+---
+
+#
+# variables needed to be defined in user's playbook
+#
+
+
+
+#
+# user-configurable defaults
+#
+
+nodejs_compile: True   # install tools for compiling native addons from npm
+
+
+nodejs_default_in_apt: "0.12"
+nodejs_default_in_yum: "0.10"
