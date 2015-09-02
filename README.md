@@ -1,7 +1,7 @@
 Practical Ansible: A Top-down Introduction
 ===
 
-A talk to be given at [DevOps 2015, Taipei](http://devopsconf.ithome.com.tw/) (2nd day, 2015-09-02).
+A talk given at [DevOps 2015, Taipei](http://devopsconf.ithome.com.tw/) (2nd day, 2015-09-02).
 
 
 ## About this talk
@@ -23,9 +23,9 @@ Refer to my previous talk given at [Modern Web 2015](http://modernweb.tw/) befor
 - Lab materials (if you have time): https://github.com/William-Yeh/ansible-tutorial
 
 
-## Slides (under construction)
+## Slides
 
-View online at SlideShare.
+View online at SlideShare: http://www.slideshare.net/williamyeh/ansible-top-down
 
 Due to time constaints (40 minutes), not all details are explained in the talk and slides.  If more details needs to be explained, together with all labs demonstrated, 2 hours may be more appropriated.
 
