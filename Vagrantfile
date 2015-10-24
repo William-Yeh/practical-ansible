@@ -2,7 +2,7 @@ Vagrant.require_version ">= 1.7.4"
 
 HOSTS = [
     { :name => "lb"  , :ip => "10.0.0.10",
-      :mem => "256"  , :box => "chef/centos-7.1",
+      :mem => "256"  , :box => "bento/centos-7.1",
       :ports => [ { :guest => 1936, :host => 1936 } ]
     },
     { :name => "app1", :ip => "10.0.0.20",
@@ -15,7 +15,7 @@ HOSTS = [
       :mem => "256"  , :box => "ubuntu/trusty64"
     },
     { :name => "db"  , :ip => "10.0.0.30",
-      :mem => "256"  , :box => "chef/centos-7.1"
+      :mem => "256"  , :box => "bento/centos-7.1"
     }
 ]
 
